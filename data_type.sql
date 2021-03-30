@@ -1,0 +1,50 @@
+-- 데이터 형식
+SELECT CAST(1234567.89 AS NUMBER(9,1)) FROM DUAL;
+
+SELECT SYSDATE FROM DUAL;
+SELECT TO_CHAR(SYSDATE, 'YYYY/MM/DD HH:MM:SS') AS "현재 날짜" FROM DUAL;
+SELECT TO_DATE('20201231235959', 'YYYYMMDDHH24MISS') AS "날짜 형식" FROM DUAL;
+
+SELECT ROWID, userName FROM userTBL;
+
+-- 변수의 사용
+SET SERVEROUTPUT ON;
+
+DECLARE
+    myVar1 NUMBER(3);
+    myVar2 NUMBER(5,2) := 3.14;
+    myVar3 NVARCHAR2(20) := '이승기 키 -->';
+BEGIN
+    myVar1 := 5;
+    DBMS_OUTPUT.PUT_LINE(myVar1);
+    DBMS_OUTPUT.PUT_LINE(myVar1 + myVar2);
+    -- 쿼리의 조회값을 myVar1에 대입한다.(SELECT .. INTO)
+    SELECT height INTO myVar1 FROM userTBL WHERE userName='이승기';
+    DBMS_OUTPUT.PUT_LINE(myVar3 || TO_CHAR(myVar1));
+END;
+
+
+-- 데이터 형식과 형 변환
+SELECT AVG(amount) AS "평균 구매 개수" FROM buyTBL;
+SELECT CAST(AVG(amount) AS NUMBER(3)) AS "평균 구매 개수" FROM buyTBL;
+
+SELECT CAST('2020$12$12' AS DATE) FROM DUAL;
+SELECT CAST('2020#12#12' AS DATE) FROM DUAL;
+
+-- || : 문자열 연결하기
+SELECT CAST(price AS CHAR(5)) || 'X' || CAST(amount AS CHAR(4)) || '=' AS "단가X수량", price*amount AS "구매액" FROM buyTBL;
+-- 숫자를 다양한 문자 형식으로 변환
+SELECT TO_CHAR(12345, '$999,999') FROM DUAL;
+SELECT TO_CHAR(12345, '$000,999') FROM DUAL;
+-- L : 지역화폐 단위
+SELECT TO_CHAR(12345, 'L999,999') FROM DUAL; 
+SELECT TO_CHAR(SYSDATE, 'YYYY/MM/DD HH:MM:SS') FROM DUAL;
+-- 10진수 -> 16진수
+SELECT TO_CHAR(255,'XX') FROM DUAL;
+-- 16진수 -> 10진수
+SELECT TO_NUMBER('FF', 'XX') FROM DUAL;
+
+    
+    
+    
+
