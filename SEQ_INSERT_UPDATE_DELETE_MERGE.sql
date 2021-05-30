@@ -1,3 +1,5 @@
+-- SEQ, INSERT, UPDATE, DELETE
+
 CREATE TABLE testTBL2(
     id NUMBER(4),
     userName NCHAR(3),
